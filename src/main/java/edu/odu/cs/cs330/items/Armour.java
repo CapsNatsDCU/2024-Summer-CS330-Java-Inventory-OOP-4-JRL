@@ -43,7 +43,6 @@ public class Armour extends Equippable implements Item
     public Armour()
     {
         super();
-
         this.name = "[Placeholder]";
         this.defense = 0;
     }
@@ -76,6 +75,14 @@ public class Armour extends Equippable implements Item
     {
         Armour cpy = new Armour();
 
+        cpy.name = this.name;
+        cpy.defense = this.defense;
+        cpy.setMaterial(this.getMaterial());
+        cpy.setDurability(this.getDurability());
+        cpy.setModifier(this.getModifier());
+        cpy.setModifierLevel(this.getModifierLevel());
+        cpy.setElement(this.getElement());
+
         return cpy;
     }
 
@@ -94,7 +101,14 @@ public class Armour extends Equippable implements Item
 
         Armour rhsItem = (Armour) rhs;
 
-        return false;
+        if(!this.name.equals(rhsItem.name)){return false;}
+        if(!this.getMaterial().equals(rhsItem.getMaterial())){return false;}
+        if(!this.getModifier().equals(rhsItem.getModifier())){return false;}
+        if(this.getModifierLevel() != rhsItem.getModifierLevel()){return false;}
+        if(!this.getElement().equals(rhsItem.getElement())){return false;}
+        if(this.defense != rhsItem.defense){return false;}
+
+        return true;
     }
 
     /**
@@ -104,7 +118,14 @@ public class Armour extends Equippable implements Item
     @Override
     public int hashCode()
     {
-        return -1;
+        return Objects.hash(
+            this.getName(),
+            this.getMaterial(),
+            this.getModifier(),
+            this.getModifierLevel(),
+            this.getElement(),
+            this.getDefense()
+        );
     }
 
     /**
@@ -113,7 +134,14 @@ public class Armour extends Equippable implements Item
     @Override
     public String toString()
     {
-        return "Use the provided format string";
+        return String.format(FMT_STR,
+        this.getName(),
+        this.getDurability(),
+        this.getDefense(),
+        this.getMaterial(),
+        this.getModifier(),
+        this.getModifierLevel(),
+        this.getElement());
     }
 }
 

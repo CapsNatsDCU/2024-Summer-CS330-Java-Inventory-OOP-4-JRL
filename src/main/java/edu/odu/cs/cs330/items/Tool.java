@@ -72,11 +72,15 @@ public class Tool extends Equippable implements Item {
     @Override
     public Item clone()
     {
-        Tool cpy = new Tool();
-
-        cpy.setName(this.name);
-
-        return cpy;
+        Tool boba = new Tool();
+        boba.name = this.name;
+        boba.speed = this.speed;
+        boba.setDurability(this.getDurability());
+        boba.setMaterial(this.getMaterial());
+        boba.setModifier(this.getModifier());
+        boba.setModifierLevel(this.getModifierLevel());
+        boba.setElement(this.getElement());
+        return boba;
     }
 
     /**
@@ -92,9 +96,15 @@ public class Tool extends Equippable implements Item {
             return false;
         }
 
-        Tool rhsItem = (Tool) rhs;
+        Tool compTool = (Tool) rhs;
 
-        return false;
+        if (!compTool.name.equals(this.name)) {return false;}
+        if (compTool.getSpeed() != this.getSpeed()) {return false;}
+        if (!compTool.getMaterial().equals(this.getMaterial())) {return false;}
+        if (!compTool.getModifier().equals(this.getModifier())) {return false;}
+        if (compTool.getModifierLevel() != this.getModifierLevel()) {return false;}
+
+        return true;
     }
 
     /**
@@ -119,6 +129,14 @@ public class Tool extends Equippable implements Item {
     @Override
     public String toString()
     {
-        return "String.format(FMT_STR, ...)";
+        return String.format(
+            FMT_STR,
+            this.getName(),
+            this.getDurability(),
+            this.getSpeed(),
+            this.getMaterial(),
+            this.getModifier(),
+            this.getModifierLevel()
+         );
     }
 }

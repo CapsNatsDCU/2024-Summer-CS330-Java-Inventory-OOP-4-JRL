@@ -119,6 +119,10 @@ public class Consumable implements Item {
     {
         Consumable cpy = new Consumable();
 
+        cpy.setName(this.getName());
+        cpy.setEffect(this.getEffect());
+        cpy.setNumberOfUses(this.getNumberOfUses());
+
         return cpy;
     }
 
@@ -134,9 +138,12 @@ public class Consumable implements Item {
             return false;
         }
 
-        Consumable rhsItem = (Consumable) rhs;
+        Consumable comp = (Consumable) rhs;
 
-        return false;
+        if (!this.name.equals(comp.name)) {return false;}
+        if (!this.effect.equals(comp.effect)) {return false;}
+
+        return true;
     }
 
     /**
@@ -148,7 +155,7 @@ public class Consumable implements Item {
     @Override
     public int hashCode()
     {
-        return -1;
+        return name.hashCode() + effect.hashCode();
     }
 
     /**
@@ -157,6 +164,8 @@ public class Consumable implements Item {
     @Override
     public String toString()
     {
-        return "Not Implemented";
-    }
+        return String.format(FMT_STR,
+            this.getName(),
+            this.getEffect(),
+            this.getNumberOfUses());    }
 }

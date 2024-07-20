@@ -1,5 +1,6 @@
 package edu.odu.cs.cs330.items.creation;
 
+import edu.odu.cs.cs330.items.Armour;
 import edu.odu.cs.cs330.items.Item;
 import edu.odu.cs.cs330.items.Tool;
 
@@ -21,15 +22,16 @@ public class ToolCreation implements ItemCreationStrategy
     @Override
     public Item fromDefaults()
     {
-        // Return a **Default** Tool
-        return null;
+        Tool neo = new Tool();
+        neo.setName("[Placeholder]");
+        return neo;
     }
 
     @Override
     public int requiredNumberOfValues()
     {
         // Replace the return value;
-        return 0;
+        return 6;
     }
 
     @SuppressWarnings({
@@ -42,7 +44,11 @@ public class ToolCreation implements ItemCreationStrategy
         Tool tool = new Tool();
 
         tool.setName(tokens[0]);
-        // Set the remaining attributes
+        tool.setMaterial(tokens[1]);
+        tool.setDurability(Integer.parseInt(tokens[2]));
+        tool.setSpeed(Integer.parseInt(tokens[3]));
+        tool.setModifier(tokens[4]);
+        tool.setModifierLevel(Integer.parseInt(tokens[5]));
 
         return tool;
     }
@@ -50,7 +56,15 @@ public class ToolCreation implements ItemCreationStrategy
     @Override
     public Item fromExisting(final Item original)
     {
-        // Return a clone of original
-        return null;
+        Tool oldTool = (Tool) original;
+        Tool boba = new Tool();
+        boba.setName(oldTool.getName());
+        boba.setSpeed(oldTool.getSpeed());
+        boba.setDurability(oldTool.getDurability());
+        boba.setMaterial(oldTool.getMaterial());
+        boba.setModifier(oldTool.getModifier());
+        boba.setModifierLevel(oldTool.getModifierLevel());
+        boba.setElement(oldTool.getElement());
+        return boba;
     }
 }
